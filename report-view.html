@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issues Reports</title>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAK0TSvdZaQdB-jPoYXJ8pExnTpZgZFbyc",
+            authDomain: "knect-dbbc3.firebaseapp.com",
+            projectId: "knect-dbbc3",
+            storageBucket: "knect-dbbc3.appspot.com",
+            messagingSenderId: "7924433933",
+            appId: "1:7924433933:web:62c743bb0e51fdadb20144"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+    
+        // Map UI Category Names to Firestore Format
+        const categoryMap = {
+            "All": "All",
+            "Educational": "educational",
+            "Civil Rights": "civil-rights",
+            "Health Care": "health-care",
+            "Local Issues": "local-issues"
+        };
+    
+        async function fetchReports(category = "All") {
+            const reportsContainer = document.getElementById("reports-grid");
+            reportsContainer.innerHTML = ""; // Clear previous reports
+    
+            let q;
+            if (category === "All") {
+                q = query(collection(db, "issues"));
+            } else {
+                const firestoreCategory = categoryMap[category]; // Convert UI category to Firestore format
+                q = query(collection(db, "issues"), where("issueType", "==", firestoreCategory));
+            }
+    
+            console.log("Fetching reports for category:", category);
+    
+            const querySnapshot = await getDocs(q);
+    
+            if (querySnapshot.empty) {
+                console.log("No reports found for this category.");
+                reportsContainer.innerHTML = `<p class="no-issues">No issues available.</p>`;
+                return;
+            }
+    
+            querySnapshot.forEach((doc) => {
+                const data = doc.data();
+                console.log("Report found:", data); // Debugging line
+
+                // Convert Firestore timestamp to readable format
+                let formattedTimestamp = "Unknown Date";
+                if (data.timestamp && data.timestamp.seconds) {
+                const dateObject = new Date(data.timestamp.seconds * 1000); // Convert seconds to milliseconds
+                formattedTimestamp = dateObject.toLocaleString(); // Format the date
+            }
+
+    
+                const card = document.createElement("div");
+                card.className = "card";
+                card.innerHTML = `
+                    <h2>${data.issueTitle || "No Title"}</h2>
+                    <p><strong>Description:</strong> ${data.issueDescription || "No Description Available"}</p>
+                    <p><strong>Location:</strong> ${data.location || "Not Provided"}</p>
+                    <p><strong>Reported By:</strong> ${data.emailAddress || "Anonymous"}</p>
+                    <p><strong>Contact Number:</strong> ${data.userNumber || "Not Provided"}</p>
+                    <p><strong>Reported On:</strong> ${formattedTimestamp}</p>
+                `;
+                reportsContainer.appendChild(card);
+            });
+        }
+    
+        // Debugging: Fetch All Reports
+        async function debugFetchAll() {
+            const q = query(collection(db, "issues"));
+            const querySnapshot = await getDocs(q);
+            querySnapshot.forEach((doc) => {
+                console.log("Existing Report Data:", doc.data());
+            });
+        }
+        debugFetchAll(); // Run on page load
+    
+        // Event listener for category selection
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchReports(); // Fetch all reports on load
+    
+            document.getElementById("category-filter").addEventListener("change", (event) => {
+                fetchReports(event.target.value);
+            });
+        });
+    
+    </script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+        body {
+            font-family: "Ubuntu", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            background-color: #111927;
+
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+body h1 {
+            color: #ffffff;
+        }
+
+        .container {
+            max-width: 75vw;
+            margin: 20px auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .card {
+            background: rgb(255, 243, 212);
+            padding: 35px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            color: #111927;
+        }
+
+        .no-issues {
+            color: white;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        select {
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (min-width: 800px) {
+            .grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .categories {
+            border-radius: 15px;
+            border: 4px rgba(255, 149, 0, 0.5);
+            width: 12vw;
+            animation: fadeIn 0.8s ease-out forwards;
+            margin: 30px;
+            min-width: 200px;
+
+        }
+        .categories:hover {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 30px rgba(255, 149, 0, 0.5);
+        }
+
+        header {
+            padding: 20px;
+            margin: auto;
+        }
+
+        nav {
+            background-color: rgb(255, 243, 212);
+            border-radius: 20px;
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 98%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(255, 149, 0, 0.8);
+            display: flex;
+            
+        }
+        .head{
+            padding-top: 0.50rem;
+            font-size: 16px;
+            font-weight: 450;
+        }
+        .contactus{
+            display: inline-block;
+            padding: 0.875rem 1.75rem;
+            /* Increased padding */
+            border-radius: 25rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            background-color: rgba(255, 149, 0, 0.8);
+            color: rgb(0, 0, 0);
+            font-weight: 400;
+            border: none;
+        }
+        .contactus:hover{
+            background-color:hsla(35, 100%, 69%, 0.8);
+            transform: translateY(-2px);
+            color:wheat;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        a{
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem;
+        }
+
+
+        </style>
+    </head>
+
+<body>
+    <header>
+
+        <nav>
+            
+                <div class="head">
+                    <h5 style="margin: 1rem ;">To consult with our team please contact</h5>
+                </div>
+                <div class="contactus">
+                    
+                    <a href="https://www.instagram.com/team.knect?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                        class="btn btn-primary">Contact us</a>
+                </div>
+            
+        </nav>
+
+
+    </header>
+    <div class="container">
+        <h1>ISSUES REPORTS</h1>
+        <p style="color: #bcf3ff;">Here You can view our users' issues</p>
+
+        <select class="categories" id="category-filter">
+            <option value="All">All Categories</option>
+            <option value="Educational">Educational</option>
+            <option value="Civil Rights">Civil Rights</option>
+            <option value="Health Care">Health Care</option>
+            <option value="Local Issues">Local Issues</option>
+        </select>
+
+        <div class="grid" id="reports-grid">
+            <!-- Reports will be dynamically inserted here -->
+        </div>
+    </div>
+</body>
+
+</html>

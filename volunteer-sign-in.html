@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Sign-In Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            height: 100vh;
+            background-color: #111927;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(43.27, 100%, 56.00000000000001%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(33.93, 0%, 0%) 0, transparent 55%);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            font-family: 'CactronRegular';
+            font-weight: normal;
+            color: rgb(195, 248, 194);
+        }
+        form {
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.75);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1), 0 0 20px rgba(255, 255, 255, 0.2);
+            width: 90%;
+            max-width: 400px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #b7ebe5;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: calc(100% - 20px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid hsl(41, 100%, 62%);
+            border-radius: 4px;
+        }
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #ffd900;
+            border: none;
+            border-radius: 4px;
+            color: rgb(0, 0, 0);
+            font-size: 19px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #ff9811;
+            color: aliceblue;
+            box-shadow: 0 0 10px rgba(234, 120, 6, 0.1), 0 4px 20px rgba(255, 255, 255, 0.2);
+        }
+        @media (max-width: 600px) {
+            form {
+                width: 100%;
+                padding: 15px;
+            }
+            input[type="text"],
+            input[type="email"],
+            input[type="tel"] {
+                width: calc(100% - 16px);
+                padding: 6px;
+            }
+            button {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+
+
+        .file-input {
+         
+          
+          padding: 3px;
+        }
+        .file-cta {
+            display: flex;
+            align-items: center;
+        }
+        .file-icon {
+            margin-right: 0.5rem;
+        }
+        .file-name {
+            margin-left: 0.5rem;
+            font-size: 0.875rem;
+            color: #495057;
+        
+        }
+    </style>
+</head>
+<body>
+    <form id="volunteer-sign-in-form">
+        <h1>Volunteer's Sign In</h1>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required>
+        <br>
+        <label> Profession:</label>
+        <br>
+        <div style="display: flex; align-items: center;">
+            <input type="checkbox" id="doctor" name="interest" value="Doctor">
+            <label for="doctor" style="margin-left: 5px;">Doctor</label>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <input type="checkbox" id="lawyer" name="interest" value="Lawyer">
+            <label for="lawyer" style="margin-left: 5px;">Lawyer</label>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <input type="checkbox" id="ngo" name="interest" value="NGO">
+            <label for="ngo" style="margin-left: 5px;">NGO</label>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <input type="checkbox" id="police" name="interest" value="Police">
+            <label for="police" style="margin-left: 5px;">Police department</label>
+        </div>
+        <div style="display: flex; align-items: center;">
+            <input type="checkbox" id="others" name="interest" value="Others">
+            <label for="others" style="margin-left: 5px;">Others</label>
+        </div>
+        <br>
+        <label for="idNumber">Official ID Number (For NGO/Govt Officials):</label>
+        <input type="text" id="idNumber" name="idNumber" placeholder="Enter your official ID (if applicable)">
+        <br>
+        <br>
+        <label for="idProof">Upload ID Proof (NGO/Govt Officials):</label>
+        <div class="file has-name mt-3">
+            <label class="file-label">
+                <input type="file" class="file-input" id="idProof" name="idProof" accept="image/*,application/pdf" />
+                <span class="file-cta">
+                    <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                    </span>
+                </span>
+            </label>
+        </div>
+        <br>
+        <button type="submit">Sign In</button>
+    </form>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
+    
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyAK0TSvdZaQdB-jPoYXJ8pExnTpZgZFbyc",
+            authDomain: "knect-dbbc3.firebaseapp.com",
+            projectId: "knect-dbbc3",
+            storageBucket: "knect-dbbc3.appspot.com",
+            messagingSenderId: "7924433933",
+            appId: "1:7924433933:web:62c743bb0e51fdadb20144"
+        };
+    
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+    
+        // Handle Form Submission
+        document.getElementById('volunteer-sign-in-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+    
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const idNumber = document.getElementById('idNumber').value;
+            const idProof = document.getElementById('idProof').files[0];
+    
+            // Get selected professions
+            const selectedProfessions = [];
+            document.querySelectorAll('input[name="interest"]:checked').forEach((checkbox) => {
+                selectedProfessions.push(checkbox.value);
+            });
+    
+            // Check if all required fields are filled
+            if (name && email && phone && selectedProfessions.length > 0) {
+                try {
+                    let idProofURL = "";
+    
+                    if (idProof) {
+                        const storageRef = ref(storage, `idProofs/${idProof.name}`);
+                        await uploadBytes(storageRef, idProof);
+                        idProofURL = await getDownloadURL(storageRef);
+                    }
+    
+                    // Save data to Firestore
+                    await addDoc(collection(db, "volunteers"), {
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        profession: selectedProfessions,
+                        idNumber: idNumber || "N/A",
+                        idProof: idProofURL || "N/A",
+                        timestamp: serverTimestamp()
+                    });
+    
+                    alert('Volunteer signed in successfully!');
+                    document.getElementById('volunteer-sign-in-form').reset(); // Clear form after submission
+                    window.location.href = "report-view.html";
+                } catch (error) {
+                    console.error("Error adding document: ", error);
+                    alert('Error submitting form! Please try again.');
+                }
+            } else {
+                alert('Please fill out all fields and select at least one profession.');
+            }
+        });
+    </script>    
+</body>
+</html>

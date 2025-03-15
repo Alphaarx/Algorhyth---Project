@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload and Textarea</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        /* Fade-in Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            height: 135vh;
+            position: relative;
+            top: auto;
+            background-color: #111927;
+            background-image:
+                radial-gradient(at 47% 33%, hsl(43.27, 100%, 56.00000000000001%) 0, transparent 59%),
+                radial-gradient(at 82% 65%, hsl(33.93, 0%, 0%) 0, transparent 55%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        .container .box {
+            backdrop-filter: blur(16px) saturate(180%);
+            background-color: rgba(17, 25, 40, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.125);
+            padding: 20px;
+            border-radius: 30px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            width: 90vw;
+            max-width: 600px;
+            text-align: center;
+            margin: auto;
+            opacity: 0;
+            transform: translateY(-20px);
+            animation: fadeIn 0.8s ease-out forwards;
+            transition: 0.3s ease-in-out;
+        }
+
+        .file {
+            display: flex;
+            align-items: center;
+            color: chartreuse;
+        }
+
+        .file-name {
+            margin-left: 10px;
+        }
+
+        .label {
+            color: rgb(238, 255, 0);
+        }
+
+        p {
+            color: rgb(204, 215, 50);
+            text-align: start;
+            padding: 10px;
+        }
+
+        /* Container Hover Animation */
+        .container .box:hover {
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 0 20px rgba(255, 149, 0, 0.5);
+        }
+
+        /* Button Hover & Click Effects */
+        .button {
+            background-color: rgb(255, 149, 0);
+            color: #111927;
+            font-weight: bold;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
+            transition: all 0.3s ease-in-out;
+            box-shadow: 0 4px 8px rgba(255, 149, 0, 0.3);
+        }
+
+        /* Button Hover - Glow Effect */
+        .button:hover {
+            background-color: rgb(255, 98, 0);
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 98, 0, 0.8);
+        }
+
+        /* Button Click - Press Effect */
+        .button:active {
+            transform: scale(0.95);
+            box-shadow: 0 2px 4px rgba(255, 98, 0, 0.3);
+        }
+
+        /* Input Fields Hover & Focus Effect */
+        .input:hover,
+        .textarea:hover {
+            border-color: rgb(255, 149, 0);
+            transition: border-color 0.3s ease-in-out;
+        }
+
+        .input:focus,
+        .textarea:focus {
+            border-color: rgb(255, 149, 0);
+            box-shadow: 0 0 10px rgba(255, 149, 0, 0.6);
+            transition: box-shadow 0.3s;
+        }
+
+        /* File Upload Shake Effect on Hover */
+        .file:hover {
+            animation: shake 0.3s ease-in-out;
+        }
+
+        /* Shake Keyframes */
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(-3px);
+            }
+
+            50% {
+                transform: translateX(3px);
+            }
+
+            75% {
+                transform: translateX(-3px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .container .box {
+                width: 95vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="container mt-5">
+            <div class="box">
+              <div class="personal-input">
+                    <div class="field">
+                        <label class="label">Enter Your Number</label>
+                        <div class="control">
+                            <input class="input" type="text" id="userNumber" name="userNumber"
+                                placeholder="Enter your number" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Enter Your Email Address</label>
+                        <div class="control">
+                            <input class="input" type="email" id="emailAddress" name="emailAddress"
+                                placeholder="Enter your email address" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label"> Permanent Address </label>
+                        <div class="control">
+                            <input class="input" type="text" id="location" name="location"
+                                placeholder="Enter your address" />
+                        </div>
+                    </div>
+                    <p>Enter your goverment identity proof for verification like Voter ID/Aadhaar card/Passport/Caste
+                        certificate etc</p>
+                    <div class="file has-name mt-4">
+                        <label class="file-label">
+                            <input class="file-input" type="file" name="issueReport" id="file2-Input" accept="file/*" />
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label"> Choose a file… </span>
+                            </span>
+                            <span class="file-name" id="fileName"> No file chosen </span>
+                        </label>
+                    </div>
+                </div>
+            </br>
+
+                    <div class="field">
+                        <label class="label">Report Issue Type</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select id="issueType" name="issueType">
+                                    <option value="">Select a category</option>
+                                    <option value="educational">Educational</option>
+                                    <option value="civil-rights">Civil Rights</option>
+                                    <option value="health-care">Health Care</option>
+                                    <option value="local-issues">Local Issues</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Issue Title</label>
+                        <div class="control">
+                            <input class="input" type="text" id="issueTitle" name="issueTitle"
+                                placeholder="Enter the title of your issue" />
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="label">Issue Description</label>
+                        <textarea class="textarea is-link" id="issueDescription" name="issueDescription"
+                            placeholder="Describe your issue..."></textarea>
+                    </div>
+                    <div class="file has-name mt-3">
+                        <label class="file-label">
+                            <input class="file-input" type="file" name="issueImage" id="fileInput" accept="image/*" />
+                            <span class="file-cta">
+                                <span class="file-icon">
+                                    <i class="fas fa-upload"></i>
+                                </span>
+                                <span class="file-label"> Choose a file… </span>
+                            </span>
+                            <span class="file-name" id="fileName"> No file chosen </span>
+                        </label>
+                    </div>
+                    <br>
+            <button class="button" id="submitButton" type="button">Submit</button>
+            <p id="responseMessage"></p>
+        </div>
+        </div>
+        </div>
+
+        
+    </main>
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAK0TSvdZaQdB-jPoYXJ8pExnTpZgZFbyc",
+        authDomain: "knect-dbbc3.firebaseapp.com",
+        projectId: "knect-dbbc3",
+        storageBucket: "knect-dbbc3.appspot.com",
+        messagingSenderId: "7924433933",
+        appId: "1:7924433933:web:62c743bb0e51fdadb20144"
+    };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        document.getElementById("submitButton").addEventListener("click", async function (event) {
+            event.preventDefault();
+
+            const issueType = document.getElementById("issueType").value.trim();
+            const issueTitle = document.getElementById("issueTitle").value.trim();
+            const issueDescription = document.getElementById("issueDescription").value.trim();
+            const userNumber = document.getElementById("userNumber").value.trim();
+            const emailAddress = document.getElementById("emailAddress").value.trim();
+            const location = document.getElementById("location").value.trim();
+            const responseMessage = document.getElementById("responseMessage");
+            const submitButton = document.getElementById("submitButton");
+
+        responseMessage.textContent = "";
+        responseMessage.style.color = "";
+
+        if (!issueType || !issueTitle || !issueDescription || !userNumber || !emailAddress || !location) {
+            responseMessage.textContent = "Please fill in all required fields.";
+            responseMessage.style.color = "red";
+            return;
+        }
+
+        try {
+            submitButton.disabled = true;
+            submitButton.textContent = "Submitting...";
+
+        await addDoc(collection(db, "issues"), {
+            issueType,
+            issueTitle,
+            issueDescription,
+            userNumber,
+            emailAddress,
+            location,
+            timestamp: new Date()
+        });
+
+        responseMessage.textContent = "Issue submitted successfully!";
+        responseMessage.style.color = "green";
+
+        // Reset form fields after submission
+        document.getElementById("issueType").value = "";
+        document.getElementById("issueTitle").value = "";
+        document.getElementById("issueDescription").value = "";
+        document.getElementById("userNumber").value = "";
+        document.getElementById("emailAddress").value = "";
+        document.getElementById("location").value = "";
+
+        window.location.href = "thankyou.html";
+
+            } catch (error) {
+            console.error("Submission error:", error);
+                responseMessage.textContent = "Something went wrong. Please try again later.";
+                responseMessage.style.color = "red";
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit";
+         }
+        });
+
+        // Update file input label when a file is selected
+        document.getElementById("fileInput").addEventListener("change", function () {
+            document.getElementById("fileName").textContent = this.files[0] ? this.files[0].name : "No file chosen";
+        });
+
+        // Prevent form submission when Enter key is pressed
+        document.querySelector("form")?.addEventListener("submit", function (event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+
+</html>

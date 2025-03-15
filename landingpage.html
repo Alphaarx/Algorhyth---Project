@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome To KNECT</title>
+    <meta name="theme-color" content="#f58b01">
+    <link rel="icon" href="icon.png" type="image/png" />
+   
+     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playwrite+IT+Moderna:wght@100..400&display=swap');
+        @import url('https://fonts.cdnfonts.com/css/magilio');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+        /* Base styles */
+        :root {
+             --primary-color: #FFC01D;
+            --secondary-color: #f58b01;  
+            /* --primary-color: #f87060; 
+            --secondary-color: #102542; */
+            
+            --background-color: #000000;
+            --text-color: #CFD8DC;
+            --heading-color: #ffffff;
+            --muted-text-color: #78909C;
+            --footer-background-color: rgba(20, 20, 20, 0.98);
+            --footer-border-color: rgba(207, 216, 220, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Inter UI", -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            margin-top: 90px;
+        }
+
+       
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 1.5rem 0;
+         
+            font-weight: 700;
+            color: var(--heading-color);
+        }
+
+        .lead {
+            font-size: 1.2rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            
+        }
+
+      
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            padding: 0.5rem;
+           
+        }
+
+        a:hover {
+            color: var(--secondary-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.875rem 1.75rem;
+           
+            border-radius: 0.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+    
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+            color: var(--background-color);
+        }
+
+        /* Navigation */
+        .navbar {
+            padding:0;
+            
+            background-color: rgba(0, 0, 0, 0.95);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .navbar-brand {
+            font-size: 1.75rem;
+           
+            font-weight: 700;
+            color: var(--heading-color);
+            padding: 0.75rem 1rem;
+           
+        }
+
+        .navbar-nav {
+            display: flex;
+            list-style: none;
+            align-items: center;
+            justify-content: end;
+            gap: 1rem;
+            
+        }
+
+        .nav-item {
+            margin: 0 1.25rem;
+          
+        }
+
+        .nav-link {
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.75rem 1rem;
+            
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .navbar-toggler {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--heading-color);
+            cursor: pointer;
+            padding: 0.75rem;
+          
+            margin: 0 1rem;
+           
+        }
+
+        /* Responsive navigation */
+        @media (max-width: 768px) {
+            .navbar-toggler {
+                display: block;
+            }
+
+            .navbar-collapse {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: rgba(0, 0, 0, 0.95);
+                padding: 1.5rem;
+                /* Increased padding */
+                display: none;
+            }
+
+            .navbar-collapse.show {
+                display: block;
+            }
+
+            .navbar-nav {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1.25rem;
+                /* Increased gap */
+            }
+
+            .nav-item {
+                margin: 0.75rem 0;
+                /* Increased margin */
+                width: 100%;
+            }
+        }
+
+        /* Feature section */
+        .features-section {
+            padding: 6rem 0;
+            /* Increased padding */
+            background-color: var(--background-color);
+        }
+
+        .feature-boxes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2.5rem;
+            /* Increased gap */
+        }
+
+        .box {
+            padding: 2.5rem;
+            /* Increased padding */
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease;
+            margin: 1rem 0;
+            /* Added margin */
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
+        }
+
+        .icon-box {
+            width: 80px;
+            /* Increased size */
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 2rem;
+            /* Increased margin */
+        }
+
+        .icon-box-inner {
+            color: var(--heading-color);
+        }
+
+        .box-primary {
+            background-color: rgba(29, 233, 182, 0.1);
+        }
+
+        .box-success {
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+
+        .box-danger {
+            background-color: rgba(244, 67, 54, 0.1);
+        }
+
+        .box-info {
+            background-color: rgba(33, 150, 243, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .feature-boxes {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                /* Adjusted gap for mobile */
+            }
+        }
+
+        /* Sections */
+        .py-7 {
+            padding: 6rem 0;
+            /* Increased padding */
+        }
+
+        .text-muted {
+            color: var(--muted-text-color);
+        }
+
+        /* Interactive elements */
+        .social-sm a {
+            display: inline-block;
+            padding: 0.75rem;
+            /* Increased padding */
+            transition: transform 0.3s ease;
+            margin: 0.5rem;
+            /* Added margin */
+        }
+
+        .social-sm a:hover {
+            transform: scale(1.2);
+        }
+
+        /* Responsive containers */
+        .container {
+            width: 100%;
+            max-width: 1920px;
+            margin: 0 auto;
+            padding: 40px 30px;
+            /* Increased padding */
+        }
+
+        /* Video background */
+        .video-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+
+        /* Overlay */
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%); */
+            background-color: rgba(0, 0, 0, 0.75);
+            z-index: -1;
+        }
+
+        /* Section spacing */
+        header,
+        footer,
+        .faq,
+        .features,
+        .chatbot {
+            padding: 70px 0;
+            /* Increased padding */
+        }
+
+        .bg-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem 0;
+            /* Added padding */
+        }
+
+        /* Utility classes */
+        .text-center {
+            text-align: center;
+            margin: 1rem 0;
+            /* Added margin */
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer Styles */
+        .footer {
+            background-color: var(--footer-background-color);
+            padding: 6rem 0 3rem;
+            /* Increased padding */
+            position: relative;
+            margin-top: 5rem;
+            /* Increased margin */
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-color), transparent);
+        }
+
+        .footer-heading {
+            color: var(--heading-color);
+            font-size: 1.3rem;
+            /* Increased font size */
+            margin-bottom: 2rem;
+            /* Increased margin */
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-heading::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -10px;
+            /* Adjusted position */
+            width: 35px;
+            /* Increased width */
+            height: 2px;
+            background-color: var(--primary-color);
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 1rem 0;
+            /* Added margin */
+        }
+
+        .footer-links li {
+            margin-bottom: 1rem;
+            /* Increased margin */
+        }
+
+        .footer-links a {
+            color: var(--text-color);
+            transition: all 0.3s ease;
+            display: inline-block;
+            padding: 0.5rem 0;
+            /* Added padding */
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 1.5rem;
+            /* Increased gap */
+            margin-top: 2rem;
+            /* Increased margin */
+        }
+
+        .social-icon {
+            width: 45px;
+            /* Increased size */
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(29, 233, 182, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            margin: 0.5rem;
+            /* Added margin */
+        }
+
+        .social-icon:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+
+        .social-icon i {
+            color: var(--primary-color);
+            font-size: 1.3rem;
+            /* Increased font size */
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover i {
+            color: var(--background-color);
+        }
+
+        .footer-bottom {
+            margin-top: 5rem;
+            /* Increased margin */
+            padding-top: 2.5rem;
+            /* Increased padding */
+            border-top: 1px solid var(--footer-border-color);
+        }
+
+        .footer-copyright {
+            color: var(--muted-text-color);
+            font-size: 0.95rem;
+            /* Increased font size */
+            padding: 1rem 0;
+            /* Added padding */
+        }
+
+        /* Grid utilities */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            /* Increased gap */
+            padding: 2rem 0;
+            /* Added padding */
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 2.5rem;
+                /* Adjusted gap for mobile */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                /* Adjusted gap for mobile */
+            }
+        }
+
+        /* Feature Cards */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2.5rem;
+            /* Increased gap */
+            margin-top: 4rem;
+            /* Increased margin */
+        }
+
+        .card {
+            background-color: #1c1c1c;
+            padding: 2.5rem;
+            /* Increased padding */
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin: 1rem 0;
+            /* Added margin */
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            color: var(--heading-color);
+            margin-bottom: 1.5rem;
+            /* Increased margin */
+        }
+
+        .card p {
+            color: var(--text-color);
+            margin: 1rem 0;
+            /* Added margin */
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                /* Adjusted gap for mobile */
+            }
+        }
+        @keyframes appear {
+            from {
+            opacity: 0;
+            transform: scale(0.5);
+            }
+            to {
+            opacity: 1;
+            transform: scale(1);
+            }
+        }
+
+        .app {
+            animation: appear 1s linear;
+            animation: appear linear;
+            animation-timeline: view();
+            animation-range: entry 0% cover 40%;
+        }
+    </style> 
+</head>
+
+<body>
+    <!--navigation-->
+    <nav class="navbar">
+        <div style="padding: 9px 20px;" class="container">
+            <a style="  font-family: 'Magilio', sans-serif;" class="navbar-brand" href="landingpage.html">KNECT</a>
+            <button class="navbar-toggler" onclick="toggleNav()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="3" y1="12" x2="21" y2="12"></line>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
+            </button>
+            <div class="navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                   
+                    <li class="nav-item">
+                        <a class="nav-link" href="#faq">FAQ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#footer">About Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary" href="#chat-bot" style="color: #000000;">Chat-Help</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- header-->
+    <section class="py-7 py-md-0 bg-hero" id="home">
+        <div class="container">
+            <div class="position-relative py-7 py-md-0 bg-hero">
+                <video autoplay loop muted playsinline class="video-bg">
+                    <source src="alpha.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+                <!-- Overlay to improve text visibility -->
+                <div class="video-overlay"></div>
+                <div class="row vh-md-100">
+                    <div class="col-md-8 col-sm-10 col-12 mx-auto my-auto text-center">
+                        <h1 class="heading-black text-capitalize">One Stop Solution To All Your Problems!</h1>
+                        <p class="lead py-3">
+                            Connecting Communities, Empowering Futures: Education for Growth, Healthcare for Well-being,
+                            Justice for All.</p>
+                        <a style="  font-family: 'Space Mono', monospace; " href="Sign-in.html" class="btn btn-primary d-inline-flex flex-row align-items-center">
+                            User Sign In
+                            <em class="ml-2" data-feather="arrow-right"></em>
+                        </a>
+                        <a style="  font-family: 'Space Mono', monospace; " href="volunteer-sign-in.html"
+                            class="btn btn-primary d-inline-flex flex-row align-items-center">
+                            Volunteer's Sign In
+                            <em class="ml-2" data-feather="arrow-right"></em>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+    <!--features section-->
+    <section id="features" class="features-section app">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto text-center">
+                    <h2 class="heading-black">KNECT everything you need.</h2>
+                    <p class="text-muted lead">Our Service Is A Hammer To Nail All Your Problems !</p>
+                </div>
+            </div>
+            <div class="row mt-5 app">
+                <div class="col-md-10 mx-auto">
+                    <div class="row feature-boxes">
+                        <div class="col-md-6 box">
+                            <div class="icon-box box-primary">
+                                <div class="icon-box-inner">
+                                    <svg style="color: #FFC01D;" class="w-6 h-6 text-gray-800 dark:text-white"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="38" height="38"
+                                        fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M12 20a16.405 16.405 0 0 1-5.092-5.804A16.694 16.694 0 0 1 5 6.666L12 4l7 2.667a16.695 16.695 0 0 1-1.908 7.529A16.406 16.406 0 0 1 12 20Z" />
+                                    </svg>
+
+                                </div>
+                            </div>
+                            <h5>Community Safety</h5>
+                            <p class="text-muted">KNECT works with the police to ensure community safety, conduct
+                                awareness programs, and support rural residents in legal and social matters. Our
+                                collaboration helps in crime prevention, legal assistance, and creating a secure
+                                environment for all.</p>
+                        </div>
+                        <div class="col-md-6 box">
+                            <div class="icon-box box-success">
+                                <div class="icon-box-inner">
+                                    <svg style="color: #1de9b6;" class="w-6 h-6 text-gray-800 dark:text-white"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="34" height="34"
+                                        fill="currentColor" viewBox="0 0 24 24">
+                                        <path
+                                            d="M6 2c-1.10457 0-2 .89543-2 2v4c0 .55228.44772 1 1 1s1-.44772 1-1V4h12v7h-2c-.5523 0-1 .4477-1 1v2h-1c-.5523 0-1 .4477-1 1s.4477 1 1 1h5c.5523 0 1-.4477 1-1V3.85714C20 2.98529 19.3667 2 18.268 2H6Z" />
+                                        <path
+                                            d="M6 11.5C6 9.567 7.567 8 9.5 8S13 9.567 13 11.5 11.433 15 9.5 15 6 13.433 6 11.5ZM4 20c0-2.2091 1.79086-4 4-4h3c2.2091 0 4 1.7909 4 4 0 1.1046-.8954 2-2 2H6c-1.10457 0-2-.8954-2-2Z" />
+                                    </svg>
+
+                                </div>
+                            </div>
+                            <h5>Transforming Lives</h5>
+                            <p class="text-muted">KNECT collaborates with lawyers to provide legal aid, rights
+                                awareness, and guidance to rural communities. We assist individuals in accessing
+                                justice, resolving disputes, and understanding their legal rights for a safer and
+                                empowered society.</p>
+                        </div>
+                        <div class="col-md-6 box">
+                            <div class="icon-box box-danger">
+                                <div class="icon-box-inner">
+                                    <svg style="color: #fb0000;" class="w-6 h-6 text-gray-800 dark:text-white"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="34" height="34"
+                                        fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="M13.213 9.787a3.391 3.391 0 0 0-4.795 0l-3.425 3.426a3.39 3.39 0 0 0 4.795 4.794l.321-.304m-.321-4.49a3.39 3.39 0 0 0 4.795 0l3.424-3.426a3.39 3.39 0 0 0-4.794-4.795l-1.028.961" />
+                                    </svg>
+
+                                </div>
+                            </div>
+                            <h5> Empowering Communities</h5>
+                            <p class="text-muted">KNECT enhances healthcare in rural areas by
+                                supporting village hospitals with medical resources, conducting health awareness
+                                programs, and ensuring access to essential services. Our collaboration with doctors,
+                                social workers, and legal professionals helps provide holistic healthcare support to
+                                underserved communities.</p>
+                        </div>
+                        <div class="col-md-6 box">
+                            <div class="icon-box box-info">
+                                <div class="icon-box-inner">
+                                    <svg style="color: #1de9b6;" xmlns="http://www.w3.org/2000/svg" width="35"
+                                        height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                        class="feather feather-globe">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="2" y1="12" x2="22" y2="12"></line>
+                                        <path
+                                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                                        </path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <h5>Social Justice Initiative</h5>
+                            <p class="text-muted">KNECT promotes equality by providing legal aid, education, and
+                                healthcare to rural communities. We collaborate with lawyers, police, and social workers
+                                to protect rights and ensure justice for all..</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+    <!--chat bot-->
+    <section>
+        <div class="chatbot app" id="chat-bot">
+            <div class="row">
+                <div class="col-md-6 mx-auto text-center">
+                    <h2>Need Our AI's help?</h2>
+                    <p class="text-muted lead">KNECT AI - Bridging Communities, Empowering Lives with Healthcare,
+                        Justice, and Support</p>
+                    <a href="chat.html" class="btn btn-primary">Chat with AI</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--faq section-->
+    <section class="py-7 app" id="faq">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto text-center">
+                    <h2>Frequently asked questions</h2>
+                    <p class="text-muted lead">Answers to most common questions.</p>
+                </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-10 mx-auto">
+                    <div class="row">
+                        <div class="col-md-6 mb-5">
+                            <h6>What is KNECT?
+                            </h6>
+                            <p class="text-muted">KNECT is a nonprofit organization dedicated to improving the lives of
+                                rural communities through education, healthcare, and legal support.</p>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <h6> What is KNECT's mission?
+                            </h6>
+                            <p class="text-muted">Our mission is to bridge gaps in essential services and empower
+                                underserved communities by providing quality education, healthcare, and legal aid.</p>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <h6> How can I contact KNECT for assistance or collaboration?
+                            </h6>
+                            <p class="text-muted">You can reach us through our official website, email, or social media platforms. We are always open to partnerships and inquiries.</p>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <h6> Where does KNECT operate? </h6>
+                            <p class="text-muted">We primarily work in rural communities, partnering with local schools,
+                                hospitals, law enforcement, and social workers to create sustainable change.</p>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <h6>How does KNECT help with legal support?<h6>
+                                    <p class="text-muted">We collaborate with police, lawyers, and social workers to
+                                        offer legal aid, raise awareness about rights, and address issues like domestic
+                                        violence and child protection.</p>
+                        </div>
+                        <div class="col-md-6 mb-5">
+                            <h6>Can professionals (teachers, doctors, lawyers) volunteer with KNECT?</h6>
+                            <p class="text-muted">Absolutely! We welcome professionals who can contribute their
+                                expertise in education, healthcare, or legal aid to help uplift rural communities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-md-6 mx-auto text-center">
+                    <h5 class="mb-4">Have questions?</h5>
+                    <a href="https://www.instagram.com/team.knect?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="btn btn-primary">Contact us</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--footer-->
+    <footer class="footer " id="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <!-- About Section -->
+                <div class="footer-about">
+                    <h5 class="footer-heading">About KNECT</h5>
+                    <p class="text-muted">KNECT is a nonprofit organization dedicated to uplifting rural communities
+                        through education, healthcare, and legal support. We provide learning resources to students,
+                        enhance medical services and overall well-being. Our mission is to bridge gaps and empower
+                        underserved communities for a better future..</p>
+                    <div class="footer-social">
+                        <a href="#" class="social-icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                width="100" height="100" viewBox="0 0 26 26">
+                                <path
+                                    d="M13,0C5.82,0,0,5.82,0,13c0,6.518,4.801,11.899,11.057,12.839v-9.394H7.84v-3.417h3.217v-2.274 c0-3.765,1.834-5.417,4.963-5.417c1.498,0,2.291,0.111,2.666,0.162v2.983h-2.134c-1.328,0-1.792,1.259-1.792,2.679v1.868h3.893 l-0.528,3.417H14.76v9.422C21.105,25.006,26,19.581,26,13C26,5.82,20.18,0,13,0z">
+                                </path>
+                            </svg>
+                            <i class="fa fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                width="100" height="100" viewBox="0 0 50 50">
+                                <path
+                                    d="M 11 4 C 7.134 4 4 7.134 4 11 L 4 39 C 4 42.866 7.134 46 11 46 L 39 46 C 42.866 46 46 42.866 46 39 L 46 11 C 46 7.134 42.866 4 39 4 L 11 4 z M 13.085938 13 L 21.023438 13 L 26.660156 21.009766 L 33.5 13 L 36 13 L 27.789062 22.613281 L 37.914062 37 L 29.978516 37 L 23.4375 27.707031 L 15.5 37 L 13 37 L 22.308594 26.103516 L 13.085938 13 z M 16.914062 15 L 31.021484 35 L 34.085938 35 L 19.978516 15 L 16.914062 15 z">
+                                </path>
+                            </svg>
+                            <i class="fa fa-twitter"></i>
+                        </a>
+                        <a href="https://www.instagram.com/team.knect?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" class="social-icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                width="100" height="100" viewBox="0 0 48 48">
+                                <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-miterlimit="10" stroke-width="3"
+                                    d="M41.5,21.1v-4.6c0-5.5-4.5-10-10-10h-15c-5.5,0-10,4.5-10,10v3"></path>
+                                <path fill="none" stroke="#000" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-miterlimit="10" stroke-width="3"
+                                    d="M6.5,25.6v5.9c0,5.5,4.5,10,10,10h15c5.5,0,10-4.5,10-10v-4.6"></path>
+                                <path fill="none" stroke="#000" stroke-miterlimit="10" stroke-width="3"
+                                    d="M24,15.5c-4.7,0-8.5,3.8-8.5,8.5s3.8,8.5,8.5,8.5s8.5-3.8,8.5-8.5S28.7,15.5,24,15.5z">
+                                </path>
+                                <path d="M34,12c-1.1,0-2,0.9-2,2s0.9,2,2,2s2-0.9,2-2S35.1,12,34,12z"></path>
+                            </svg>
+                            <i class="fa fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon"><svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+                                width="100" height="100" viewBox="0 0 50 50">
+                                <path
+                                    d="M41,4H9C6.24,4,4,6.24,4,9v32c0,2.76,2.24,5,5,5h32c2.76,0,5-2.24,5-5V9C46,6.24,43.76,4,41,4z M17,20v19h-6V20H17z M11,14.47c0-1.4,1.2-2.47,3-2.47s2.93,1.07,3,2.47c0,1.4-1.12,2.53-3,2.53C12.2,17,11,15.87,11,14.47z M39,39h-6c0,0,0-9.26,0-10 c0-2-1-4-3.5-4.04h-0.08C27,24.96,26,27.02,26,29c0,0.91,0,10,0,10h-6V20h6v2.56c0,0,1.93-2.56,5.81-2.56 c3.97,0,7.19,2.73,7.19,8.26V39z">
+                                </path>
+                            </svg>
+                            <i class="fa fa-linkedin"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-links-section">
+                    <h5 class="footer-heading">Quick Links</h5>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+
+                        <li><a href="#faq">FAQ</a></li>
+
+                    </ul>
+                </div>
+
+                <!-- Legal -->
+                <div class="footer-links-section">
+                    <h5 class="footer-heading">Legal</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="footer-links-section">
+                    <h5 class="footer-heading">Contact</h5>
+                    <ul class="footer-links">
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Partners</a></li>
+                        <li><a href="#">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="text-center footer-copyright">
+                    &copy; 2025 Knight. All rights reserved. Crafted with <span style="color: #1de9b6;">♥</span> by
+                    Knect :)
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Add this script at the bottom of your body tag -->
+    <script>
+        function toggleNav() {
+            const navbarCollapse = document.getElementById('navbarCollapse');
+            navbarCollapse.classList.toggle('show');
+        }
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function (event) {
+            const navbarCollapse = document.getElementById('navbarCollapse');
+            const navbar = document.querySelector('.navbar');
+            if (!navbar.contains(event.target) && navbarCollapse.classList.contains('show')) {
+                navbarCollapse.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+
+</html>

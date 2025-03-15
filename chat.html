@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KNECT - AI Chat Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap');
+        body {
+            font-family: "Rubik", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
+            height: 100vh;
+            background-color: #111927;
+    background-image: 
+        radial-gradient(at 47% 33%, hsl(43.27, 100%, 56.00000000000001%) 0, transparent 59%), 
+        radial-gradient(at 82% 65%, hsl(33.93, 0%, 0%) 0, transparent 55%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        
+    </style>
+</head>
+
+<body class="flex items-center justify-center h-screen">
+    <div class="bg-white shadow-2xl rounded-2xl p-8 max-w-lg w-full text-center border border-gray-200">
+        <h1 class="text-3xl font-extrabold text-gray-800 mb-4" style="color: hsl(42, 95%, 51%) ;">Welcome to KNECT</h1>
+        <p class="text-lg text-gray-600 mb-6">KNECT is your AI-powered assistant, designed to provide seamless and
+            intelligent conversations. Start chatting now to explore the future of AI-driven interactions.</p>
+        <div id="chat-container"
+            class="border rounded-2xl p-6 shadow-lg bg-gray-100 flex flex-col items-center space-y-4">
+            <img src="https://cdn-icons-png.flaticon.com/512/2950/2950662.png" alt="Chatbot Icon" class="w-20 h-20">
+            <p class="text-gray-700 font-medium">Tap the chatbot icon to begin your conversation.</p>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                window.chatbase = (...arguments) => {
+                    if (!window.chatbase.q) { window.chatbase.q = []; }
+                    window.chatbase.q.push(arguments);
+                };
+                window.chatbase = new Proxy(window.chatbase, {
+                    get(target, prop) {
+                        if (prop === "q") { return target.q; }
+                        return (...args) => target(prop, ...args);
+                    }
+                });
+            }
+            const onLoad = function () {
+                const script = document.createElement("script");
+                script.src = "https://www.chatbase.co/embed.min.js";
+                script.id = "_PpSIJNhTPAAGvLjevkse";
+                script.domain = "www.chatbase.co";
+                document.body.appendChild(script);
+            };
+            if (document.readyState === "complete") {
+                onLoad();
+            } else {
+                window.addEventListener("load", onLoad);
+            }
+        })();
+    </script>
+</body>
+
+</html>
